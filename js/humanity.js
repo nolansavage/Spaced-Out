@@ -1,0 +1,2 @@
+export const HUMANITY_STATUSES = ["Unknown", "Hopeful", "Threatened", "Rebuilding"];
+export class Humanity { constructor(savedState = {}) { this.status = HUMANITY_STATUSES.includes(savedState.status) ? savedState.status : "Unknown"; } setStatus(status) { if (HUMANITY_STATUSES.includes(status)) this.status = status; } toJSON() { return { status: this.status }; } }

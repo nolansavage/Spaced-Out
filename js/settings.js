@@ -1,0 +1,2 @@
+export const DEFAULT_SETTINGS = { master: 0.7, music: 0.5, effects: 0.7, scale: 3, fullscreen: false };
+export function createSettings(saved = {}) { return { ...DEFAULT_SETTINGS, ...Object.fromEntries(Object.entries(saved).filter(([key, value]) => Object.hasOwn(DEFAULT_SETTINGS, key) && (typeof value === "number" || typeof value === "boolean"))) }; }

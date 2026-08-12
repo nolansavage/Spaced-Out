@@ -1,0 +1,3 @@
+export const FRIENDSHIP_LEVELS = [0, 25, 50, 75, 100];
+export function addFriendship(npcs, npcId, amount) { const current = npcs.state.friendship[npcId] ?? 0; const next = Math.max(0, Math.min(100, current + amount)); npcs.state.friendship[npcId] = next; return { points: next, level: FRIENDSHIP_LEVELS.filter((value) => value <= next).at(-1) }; }
+export function isUnlocked(npcs, npcId, threshold) { return (npcs.state.friendship[npcId] ?? 0) >= threshold; }

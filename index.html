@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>SPACED OUT</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="game-shell" aria-label="Spaced Out game">
+    <canvas id="game-canvas" width="320" height="180" aria-label="Spaced Out game world"></canvas>
+
+    <section id="title-screen" class="screen title-screen">
+      <div class="title-content">
+        <p class="eyebrow">A survivor's first signal</p>
+        <h1>SPACED OUT</h1>
+        <p class="title-copy">The ship is waiting.</p>
+        <div class="menu-actions">
+          <button id="new-journey-button" type="button">New Journey</button>
+          <button id="continue-button" type="button">Continue</button>
+          <button id="settings-button" class="secondary" type="button">Settings</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="creator-screen" class="screen creator-screen is-hidden" aria-labelledby="creator-title">
+      <form id="creator-form" class="creator-panel">
+        <p class="eyebrow">Emergency survivor profile</p>
+        <h2 id="creator-title">Create Your Survivor</h2>
+        <label for="player-name">Name</label>
+        <input id="player-name" name="playerName" type="text" maxlength="18" placeholder="Survivor name" required autocomplete="off">
+
+        <fieldset>
+          <legend>Emergency suit</legend>
+          <div id="suit-options" class="choice-row" aria-label="Emergency suit color"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Appearance</legend>
+          <div id="appearance-options" class="choice-row" aria-label="Appearance placeholder"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Previous profession</legend>
+          <div id="profession-options" class="profession-grid"></div>
+        </fieldset>
+
+        <p id="creator-error" class="form-error" aria-live="polite"></p>
+        <div class="creator-actions">
+          <button id="creator-back-button" class="secondary" type="button">Back</button>
+          <button type="submit">Begin Journey</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="hud" class="hud is-hidden" aria-label="Game information">
+      <div>
+        <p id="hud-profile"></p>
+        <button id="inventory-button" class="hud-command" type="button">Inventory</button>
+      </div>
+      <div id="hud-stats" class="hud-stats"></div>
+    </section>
+    <section id="ship-status" class="ship-status is-hidden" aria-label="Ship status"></section>
+
+    <p id="game-message" class="game-message is-hidden" aria-live="polite"></p>
+
+    <section id="hotbar" class="hotbar is-hidden" aria-label="Item hotbar"></section>
+
+    <section id="inventory-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="inventory-title">
+      <div class="inventory-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Cargo manifest</p>
+            <h2 id="inventory-title">INVENTORY</h2>
+          </div>
+          <button id="close-inventory-button" class="secondary" type="button">Close</button>
+        </div>
+        <div id="inventory-content" class="inventory-content"></div>
+      </div>
+    </section>
+
+    <section id="crafting-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="crafting-title">
+      <div class="inventory-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Engineering Deck</p><h2 id="crafting-title">FABRICATOR</h2></div><button id="close-crafting-button" class="secondary" type="button">Close</button></div>
+        <div id="crafting-content" class="inventory-content"></div>
+      </div>
+    </section>
+
+    <section id="navigation-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="navigation-title">
+      <div class="inventory-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Ship Navigation</p><h2 id="navigation-title">DESTINATIONS</h2></div><button id="close-navigation-button" class="secondary" type="button">Close</button></div>
+        <div id="navigation-content" class="inventory-content"></div>
+      </div>
+    </section>
+
+    <section id="dialogue-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="dialogue-title"><div class="inventory-panel"><div class="panel-heading"><div><p id="dialogue-role" class="eyebrow"></p><h2 id="dialogue-title"></h2></div><button id="close-dialogue-button" class="secondary" type="button">Close</button></div><p id="dialogue-text"></p><div id="dialogue-options" class="inventory-content"></div></div></section>
+    <section id="choice-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="choice-title"><div class="inventory-panel"><h2 id="choice-title">FUTURE DIRECTIVE</h2><div id="choice-options" class="inventory-content"></div></div></section>
+    <section id="settings-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="settings-title"><div class="sleep-panel"><h2 id="settings-title">SETTINGS</h2><label>Master <input id="master-volume" type="range" min="0" max="1" step="0.1"></label><label>Music <input id="music-volume" type="range" min="0" max="1" step="0.1"></label><label>Effects <input id="effects-volume" type="range" min="0" max="1" step="0.1"></label><button id="close-settings-button" class="secondary" type="button">Close</button></div></section>
+
+    <section id="sleep-screen" class="screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="sleep-title">
+      <div class="sleep-panel">
+        <p class="eyebrow">Emergency Living Quarters</p>
+        <h2 id="sleep-title">End the day?</h2>
+        <p>Sleep restores energy and advances crop growth.</p>
+        <div class="sleep-actions">
+          <button id="confirm-sleep-button" type="button">Sleep</button>
+          <button id="cancel-sleep-button" class="secondary" type="button">Stay Awake</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="screen pause-screen is-hidden" aria-modal="true" role="dialog" aria-labelledby="pause-title">
+      <div class="pause-panel">
+        <p class="eyebrow">Ship systems paused</p>
+        <h2 id="pause-title">PAUSED</h2>
+        <button id="resume-button" type="button">Resume</button>
+        <button id="return-title-button" class="secondary" type="button">Return to Title</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

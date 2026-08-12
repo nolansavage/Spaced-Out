@@ -1,0 +1,2 @@
+import { PLANETS } from "./planets.js";
+export function getNavigationReport(planetId) { const planet = PLANETS[planetId]; return planet ? { ...planet, analysis: `AI: Planetary conditions analyzed. Risk level: ${planet.risk}. Proceed with caution.` } : null; }
